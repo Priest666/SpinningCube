@@ -6,23 +6,23 @@
         static float A, B, C;
 
         // Size of the cube
-        static float cubeWidth = 20;
+        static float cubeWidth = 15;
 
         // Dimensions of the console screen
-        static int width = 160, height = 44;
+        static int width = 100, height = 20;
 
         // Arrays to store z-buffer and the actual characters to be printed
-        static float[] zBuffer = new float[160 * 44];
-        static char[] buffer = new char[160 * 44];
+        static float[] zBuffer = new float[100 * 20];
+        static char[] buffer = new char[100 * 20];
 
         // Background character to clear the screen
         static char backgroundCode = ' ';
 
         // Camera distance for projection calculations
-        static int distanceFromCam = 130;
+        static int distanceFromCam = 150;
 
         // Speed at which the cube is incremented in space
-        static float incrementSpeed = 0.6f;
+        static float incrementSpeed = 0.4f;
 
         // Constant for scaling the projection
         static float K1 = 40f;
@@ -109,11 +109,11 @@
                     for (float cubeY = -cubeWidth; cubeY < cubeWidth; cubeY += incrementSpeed)
                     {
                         // Calculate and render the surfaces of the cube with different characters
-                        CalculateForSurface(cubeX, cubeY, -cubeWidth, '.');
+                        CalculateForSurface(cubeX, cubeY, -cubeWidth, '*');
                         CalculateForSurface(cubeWidth, cubeY, cubeX, '$');
                         CalculateForSurface(-cubeWidth, cubeY, -cubeX, '~');
                         CalculateForSurface(-cubeX, cubeY, cubeWidth, '#');
-                        CalculateForSurface(cubeX, -cubeWidth, -cubeY, ';');
+                        CalculateForSurface(cubeX, -cubeWidth, -cubeY, '"');
                         CalculateForSurface(cubeX, cubeWidth, cubeY, '+');
                     }
                 }
@@ -132,8 +132,8 @@
                 }
 
                 // Update the rotation angles to animate the cube
-                A += 0.4f;  // Adjust A to control the rotation on X-axis
-                B += 0.4f;  // Adjust B to control the rotation on Y-axis
+                A += 0.3f;  // Adjust A to control the rotation on X-axis
+                B += 0.3f;  // Adjust B to control the rotation on Y-axis
 
                 // Small delay to control the speed of the animation
                 Thread.Sleep(50);
