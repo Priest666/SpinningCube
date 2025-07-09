@@ -1,4 +1,7 @@
-﻿namespace SpinningCube
+﻿using System;
+using System.Threading;
+
+namespace SpinningCube
 {
     internal class Program
     {
@@ -12,8 +15,8 @@
         static int width = 100, height = 20;
 
         // Arrays to store z-buffer and the actual characters to be printed
-        static float[] zBuffer = new float[100 * 20];
-        static char[] buffer = new char[100 * 20];
+        static float[] zBuffer = new float[width * height];
+        static char[] buffer = new char[width * height];
 
         // Background character to clear the screen
         static char backgroundCode = ' ';
@@ -79,7 +82,7 @@
             idx = xp + yp * width;
 
             // Check if the calculated index is within valid screen bounds
-            if (idx >= 0 && idx < width * height)
+            if (xp >= 0 && xp < width && yp >= 0 && yp < height && idx >= 0 && idx < width * height)
             {
                 // If the new point is closer than the current point at the same screen position, update it
                 if (ozz > zBuffer[idx])
@@ -92,8 +95,8 @@
 
         static void Main(string[] args)
         {
-            // Clear the console screen at the start
-            Console.WriteLine("\x1b[2");
+            // Hide the console cursor for better visual effect
+            Console.CursorVisible = false;
 
             while (true)
             {
@@ -118,8 +121,8 @@
                     }
                 }
 
-                // Reset the cursor to the top of the console
-                Console.WriteLine("\x1b[H");
+                // Move cursor to top-left corner of the console (no flicker)
+                Console.SetCursorPosition(0, 0);
 
                 // Print the buffer to the console, rendering the cube
                 for (int y = 0; y < height; y++)
@@ -132,8 +135,8 @@
                 }
 
                 // Update the rotation angles to animate the cube
-                A += 0.3f;  // Adjust A to control the rotation on X-axis
-                B += 0.3f;  // Adjust B to control the rotation on Y-axis
+                A += 0.2f;  // Adjust A to control the rotation on X-axis
+                B += 0.2f;  // Adjust B to control the rotation on Y-axis
 
                 // Small delay to control the speed of the animation
                 Thread.Sleep(50);
